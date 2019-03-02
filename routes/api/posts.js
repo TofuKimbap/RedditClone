@@ -51,11 +51,12 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
     return res.status(400).json(errors);
   }
 
-  const { text } = req.body;
+  const { title, text } = req.body;
   const { id, handle } = req.user;
 
   // Create new post.
   const newPost = new Post({
+    title,
     text,
     handle,
     user: id
@@ -139,6 +140,48 @@ router.post('/downvote/:post_id', passport.authenticate('jwt', { session: false 
     .catch(() => {
       return res.json({ postnotfound: 'No post with this ID exists' });
     });
+});
+
+// @route  PUT api/posts/update/:post_id
+// @desc   Update the post.
+// @access Private
+router.put('/update/:post_id', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Post.findById(req.params.post_id)
+    .then(post => {
+      // Check if logged in user is author of the post.
+      if (req.user._id.toString() !== post.user.toString()) {
+        return res.status(400).json({ notauthorized: 'Not authorized' });
+      }
+      const { errors, isValid } = validatePostInput(req.body);
+
+      if (!isValid) {
+        return res.status(400).json(errors);
+      }
+
+      const { title, text } = req.body;
+
+      post.title = title;
+      post.text = text;
+      post.updated_at = Date.now();
+
+      post.save().then(savedPost => res.json(savedPost));
+    })
+    .catch(() => res.status(404).json({ nopostfound: 'No post with given ID found.' }));
+});
+
+// @route  DELETE api/posts/delete/:post_id
+// @desc   Delete a post by id.
+// @access Private
+router.delete('/delete/:post_id', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Post.findById(req.params.post_id)
+    .then(post => {
+      // Check if logged in user is author of the post.
+      if (req.user._id.toString() === post.user.toString()) {
+        return post.remove().then(removedPost => res.json(removedPost));
+      }
+      res.status(400).json({ notauthorized: 'User not authorized' });
+    })
+    .catch(() => res.status(404).json({ postnotfound: 'Post with given ID not found.' }));
 });
 
 module.exports = router;

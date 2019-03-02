@@ -11,6 +11,7 @@ const db = require('./config/keys').mongoURI;
 // Import routes.
 const users = require('./routes/api/users');
 const posts = require('./routes/api/posts');
+const comments = require('./routes/api/comments');
 
 // Connect server to MongoDB.
 mongoose
@@ -33,6 +34,7 @@ app.get('/', (req, res) => res.send('Hello, World'));
 // Use routes
 app.use('/api/users', users);
 app.use('/api/posts', posts);
+app.use('/api/comments', comments);
 
 const port = process.env.PORT || 10000;
 

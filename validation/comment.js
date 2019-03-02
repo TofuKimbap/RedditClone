@@ -1,19 +1,10 @@
 const Validator = require('validator');
 const validText = require('./valid-text');
 
-module.exports = function validatePostInput(data) {
+module.exports = function validateCommentInput(data) {
   const errors = {};
 
-  data.title = validText(data.title) ? data.title : '';
   data.text = validText(data.text) ? data.text : '';
-
-  if (!Validator.isLength(data.title, { min: 2, max: 32 })) {
-    errors.title = 'Title must be between 2 and 32 characters';
-  }
-
-  if (Validator.isEmpty(data.title)) {
-    errors.title = 'Title field is required';
-  }
 
   if (!Validator.isLength(data.text, { min: 16, max: 320 })) {
     errors.text = 'Post must be between 15 and 320 characters';

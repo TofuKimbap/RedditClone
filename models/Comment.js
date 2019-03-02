@@ -1,17 +1,29 @@
 const { Schema, model } = require('mongoose');
 
-const PostSchema = new Schema({
-  user: {
+const CommentSchema = Schema({
+  post: {
+    type: Schema.Types.ObjectId,
+    ref: 'post'
+  },
+  parent: {
+    type: Schema.Types.ObjectId,
+    ref: 'comment'
+  },
+  slug: {
+    type: String,
+    required: true
+  },
+  full_slug: {
+    type: String,
+    required: true
+  },
+  posted: {
+    type: Date,
+    default: Date.now
+  },
+  author: {
     type: Schema.Types.ObjectId,
     ref: 'user'
-  },
-  title: {
-    type: String,
-    required: true
-  },
-  handle: {
-    type: String,
-    required: true
   },
   text: {
     type: String,
@@ -50,6 +62,6 @@ const PostSchema = new Schema({
   }
 });
 
-const Post = model('post', PostSchema);
+const Comment = model('comment', CommentSchema);
 
-module.exports = Post;
+module.exports = Comment;
