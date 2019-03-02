@@ -6,6 +6,11 @@ const passport = require('passport');
 // Load User model
 const User = require('../../models/User');
 
+// Load input validations
+const validateRegisterInput = require('../../validation/register');
+const validateLoginInput = require('../../validation/login');
+
+// Load secretOrKey
 const { secretOrKey } = require('../../config/keys');
 
 const router = express.Router();
@@ -14,6 +19,14 @@ const router = express.Router();
 // @desc   Register new user
 // @access Public
 router.post('/register', (req, res) => {
+  // Check for any input errors.
+  const { errors, isValid } = validateRegisterInput(req.body);
+
+  // Input is invalid.
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   const { handle, email, password } = req.body;
   // Check to make sure nobody has already registered with the email.
   User.findOne({ email }).then(user => {
@@ -48,6 +61,12 @@ router.post('/register', (req, res) => {
 // @desc   Login user / Returning JWT token
 // @access Public
 router.post('/login', (req, res) => {
+  const { errors, isValid } = validateLoginInput(req.body);
+
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   const { email, password } = req.body;
 
   User.findOne({ email }).then(user => {
@@ -82,7 +101,9 @@ router.post('/login', (req, res) => {
   });
 });
 
-// Test route.
+// @route  GET api/users/current
+// @desc   Get current logged in user
+// @access Private
 router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
   const { id, handle, email } = req.user;
 
