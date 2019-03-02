@@ -59,6 +59,12 @@ router.post(
   '/comment/:comment_id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
+    const { errors, isValid } = validateCommentInput(req.body);
+
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
+
     Comment.findById(req.params.comment_id)
       .then(comment => {
         // Create slug
@@ -158,5 +164,59 @@ router.get('/post/:post_id', (req, res) => {
       res.status(404).json({ nocommentsfound: 'No comments with the given post ID found.' })
     );
 });
+
+// @routes GET api/comments/user/:user_id
+// @desc   Get all comments of an user.
+// @access Public
+router.get('/user/:user_id', (req, res) => {
+  Comment.find({ author: req.user._id })
+    .then(comments => res.json(comments))
+    .catch(() => res.status(404).json({ nocommentfound: 'No comment with given ID found.' }));
+});
+
+// @routes PUT api/comments/update/:comment_id
+// @desc   Update a comment.
+// @access Private
+router.put('/update/:comment_id', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Comment.findById(req.params.comment_id)
+    .then(comment => {
+      // Check if logged in user is author of comment.
+      if (comment.author.toString() === req.user._id.toString()) {
+        const { errors, isValid } = validateCommentInput(req.body);
+
+        if (!isValid) {
+          return res.status(400).json(errors);
+        }
+
+        comment.text = req.body.text;
+        comment.updated_at = Date.now();
+
+        return comment.save().then(updatedComment => res.json(updatedComment));
+      }
+      res.status(400).json({ notauthorized: 'Not authorized' });
+    })
+    .catch(() => res.status(404).json({ nocommentfound: 'No Comment with given ID found.' }));
+});
+
+// @routes DELETE api/comments/delete/:comment_id
+// @desc   Delete a comment.
+// @access Private
+router.delete(
+  '/delete/:comment_id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Comment.findById(req.params.comment_id)
+      .then(comment => {
+        // Check if logged in user is author of comment.
+        if (req.user._id.toString() === comment.author.toString()) {
+          comment.text = '[deleted]';
+
+          return comment.save().then(() => res.json({ msg: 'Success' }));
+        }
+        res.status(400).json({ notauthorized: 'Not authorized' });
+      })
+      .catch(() => res.status(404).json({ nocommentfound: 'No comment with given ID found.' }));
+  }
+);
 
 module.exports = router;

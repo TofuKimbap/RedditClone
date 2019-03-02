@@ -17,10 +17,6 @@ const CommentSchema = Schema({
     type: String,
     required: true
   },
-  posted: {
-    type: Date,
-    default: Date.now
-  },
   author: {
     type: Schema.Types.ObjectId,
     ref: 'user'

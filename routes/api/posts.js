@@ -177,7 +177,9 @@ router.delete('/delete/:post_id', passport.authenticate('jwt', { session: false 
     .then(post => {
       // Check if logged in user is author of the post.
       if (req.user._id.toString() === post.user.toString()) {
-        return post.remove().then(removedPost => res.json(removedPost));
+        post.text = '[deleted]';
+
+        post.save().then(deletedPost => res.json(deletedPost));
       }
       res.status(400).json({ notauthorized: 'User not authorized' });
     })
