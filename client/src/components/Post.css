@@ -1,0 +1,49 @@
+.post-container {
+  border: 1px solid #cccccc;
+  width: 90%;
+  display: grid;
+  grid-template-columns: 3.5rem auto;
+}
+
+.post-container:hover {
+  border: 1px solid #898989;
+  cursor: pointer;
+}
+
+.post-votes-container {
+  background: #fafafa;
+}
+
+.post-votes {
+  display: grid;
+  justify-content: center;
+  justify-items: center;
+  gap: 0.3rem;
+  margin-top: 0.5rem;
+}
+
+.post-main {
+  padding: 0.5rem;
+  display: grid;
+  grid-template-rows: repeat(3, auto);
+  gap: 0.5rem;
+}
+
+.post-author {
+  font-weight: 100;
+  font-size: 0.75rem;
+}
+
+.post-title {
+  font-size: 1.4rem;
+}
+
+.post-detail {
+  display: flex;
+}
+
+.post-comment-counter {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #878a8c;
+}

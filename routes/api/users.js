@@ -58,7 +58,7 @@ router.post('/register', (req, res) => {
 });
 
 // @route  POST api/users/login
-// @desc   Login user / Returning JWT token
+// @desc   Login user / Returning json web token
 // @access Public
 router.post('/login', (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);

@@ -1,0 +1,45 @@
+.navbar {
+  height: 3rem;
+  border-bottom: 1px solid #f0f0f0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: white;
+}
+
+.navbar-inner {
+  width: 97%;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-logo {
+  width: 7rem;
+  margin-top: 0.3rem;
+}
+
+.navbar-items {
+  display: flex;
+  align-items: center;
+}
+
+.btn-outline-blue {
+  border: 1px solid #0079d3;
+  color: #0079d3;
+  background: none;
+}
+
+.btn-fill-blue {
+  border: none;
+  color: white;
+  background: #0079d3;
+}
+
+.navbar-user {
+  color: #878a8c;
+  margin: 0 1rem;
+  cursor: pointer;
+}
