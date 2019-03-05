@@ -1,0 +1,24 @@
+.register {
+  height: 70vh;
+  margin-top: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.registerForm {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.inputStyle {
+  font-size: 1rem;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  border: 1px solid grey;
+  outline: none;
+}
+
+.labelStyle {
+  font-size: 0.8rem;
+}

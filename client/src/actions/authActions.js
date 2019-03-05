@@ -22,7 +22,7 @@ export const registerUser = (user, history) => dispatch => {
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
-        playload: err.response.data
+        payload: err.response.data
       })
     );
 };

@@ -4,6 +4,7 @@
   "private": true,
   "proxy": "http://localhost:10000",
   "dependencies": {
+    "prop-types": "^15.7.2",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-redux": "^6.0.1",

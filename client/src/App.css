@@ -22,3 +22,8 @@
 .btn:active {
   transform: translateY(0);
 }
+
+.error {
+  font-size: 0.6rem;
+  color: red;
+}
