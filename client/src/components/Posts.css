@@ -2,4 +2,54 @@
   display: flex;
   justify-content: center;
   margin-top: 4rem;
+  flex-direction: column;
+  align-items: center;
+}
+
+.postForm-container {
+  margin: 3rem 0;
+  width: 80%;
+}
+
+.postForm {
+  width: 100%;
+  margin: 1rem auto;
+  display: grid;
+  gap: 1rem;
+  justify-items: center;
+  max-width: 50rem;
+}
+
+.postForm-textInput {
+  height: 2rem;
+  border-radius: 0.3rem;
+  border: 1px solid grey;
+  font-size: 1rem;
+  padding: 0.2rem 0.6rem;
+  width: 100%;
+  outline: none;
+}
+
+.postForm-textarea {
+  font-size: 1rem;
+  padding: 0.6rem;
+  line-height: 1.7rem;
+  border-radius: 0.3rem;
+  border: 1px solid grey;
+  width: 100%;
+  outline: none;
+}
+
+.postForm-textarea:focus {
+  height: 10rem;
+}
+
+.postForm-label {
+  letter-spacing: 0.05rem;
+  font-size: 0.8rem;
+  justify-self: start;
+}
+
+.postForm-btn {
+  justify-self: end;
 }

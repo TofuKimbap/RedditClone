@@ -38,9 +38,6 @@ class App extends React.Component {
             <Route exact path="/" component={Posts} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
-            <Switch>
-              <PrivateRoute exact path="/dashboard" component={PostForm} />
-            </Switch>
           </div>
         </BrowserRouter>
       </Provider>
