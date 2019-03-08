@@ -1,0 +1,50 @@
+.comment {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 3.5rem auto;
+  grid-row-gap: 1rem;
+  margin: 1rem 0;
+}
+
+.comment-votes {
+  grid-row: 1/-1;
+  grid-column: 1/2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.comment-main {
+  display: grid;
+  grid-template-rows: repeat(3, auto);
+  grid-gap: 0.5rem;
+}
+
+.comment-header {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: start;
+  grid-gap: 0.8rem;
+  font-size: 0.8rem;
+}
+
+.comment-reply {
+  justify-self: flex-start;
+  font-size: 0.8rem;
+  color: #878a8c;
+}
+
+.comment-reply:hover {
+  cursor: pointer;
+}
+
+.comment-reply-icon {
+  color: #b7b9ba;
+}
+
+.comment-vote-points,
+.comment-post-time {
+  font-weight: lighter;
+  color: #7c7c7c;
+}

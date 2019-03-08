@@ -1,4 +1,12 @@
-import { GET_POSTS, POST_LOADING, ADD_POST, UPDATE_POST } from '../actions/types';
+import {
+  GET_POSTS,
+  POST_LOADING,
+  ADD_POST,
+  UPDATE_POST,
+  GET_POST,
+  INSERT_COMMENT,
+  CLEAR_POST
+} from '../actions/types';
 
 const initialState = {
   posts: [],
@@ -19,6 +27,12 @@ export default function(state = initialState, action) {
         posts: action.payload,
         loading: false
       };
+    case GET_POST:
+      return {
+        ...state,
+        post: action.payload,
+        loading: false
+      };
     case ADD_POST:
       return {
         ...state,
@@ -28,6 +42,16 @@ export default function(state = initialState, action) {
       return {
         ...state,
         posts: state.posts.map(post => (post._id === action.payload._id ? action.payload : post))
+      };
+    case INSERT_COMMENT:
+      return {
+        ...state,
+        post: action.payload
+      };
+    case CLEAR_POST:
+      return {
+        ...state,
+        post: {}
       };
     default:
       return state;

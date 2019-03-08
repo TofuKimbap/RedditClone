@@ -10,6 +10,7 @@ import PrivateRoute from './components/common/PrivateRoute';
 import Navbar from './components/Navbar';
 import Posts from './components/Posts';
 import PostForm from './components/PostForm';
+import PostDiscussion from './components/PostDiscussion';
 import Register from './components/Register';
 import Login from './components/Login';
 import { setCurrentUser, logoutUser } from './actions/authActions';
@@ -38,6 +39,7 @@ class App extends React.Component {
             <Route exact path="/" component={Posts} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/post/:post_id" component={PostDiscussion} />
           </div>
         </BrowserRouter>
       </Provider>

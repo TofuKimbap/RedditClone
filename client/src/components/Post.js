@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import './Post.css';
 
@@ -13,9 +14,17 @@ class Post extends React.Component {
   onDownvote = () => {
     this.props.downvotePost(this.props.id);
   };
+
+  onPostDiscussion = event => {
+    if (event.target.tagName.toLowerCase() === 'i') {
+      return;
+    }
+    this.props.history.push(`/post/${this.props.id}`);
+  };
+
   render() {
     return (
-      <div className="post-container">
+      <div className="post-container" onClick={this.onPostDiscussion}>
         <div className="post-votes-container">
           <div className="post-votes">
             <i className="fas fa-arrow-up post-arrow-up" onClick={this.onUpvote} />
@@ -42,4 +51,4 @@ class Post extends React.Component {
 export default connect(
   null,
   { upvotePost, downvotePost }
-)(Post);
+)(withRouter(Post));

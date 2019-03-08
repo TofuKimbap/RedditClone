@@ -41,11 +41,12 @@ router.post('/post/:post_id', passport.authenticate('jwt', { session: false }), 
         slug,
         full_slug,
         author: req.user._id,
+        handle: req.user.handle,
         text: req.body.text
       });
 
       newComment.save().then(freshComment => {
-        post.comments.push({ comment: freshComment._id });
+        post.comments.unshift({ comment: freshComment._id });
         post.save().then(updatedPost => res.json(updatedPost));
       });
     })
@@ -80,6 +81,7 @@ router.post(
           parent: comment._id,
           slug,
           full_slug,
+          handle: req.user.handle,
           author: req.user._id,
           text: req.body.text
         });
@@ -107,7 +109,9 @@ router.post(
             .length > 0;
 
         if (alreadyUpvoted) {
-          comment.upvotes = comment.upvotes.filter(upvote => upvote.user !== req.user._id);
+          comment.upvotes = comment.upvotes.filter(
+            upvote => upvote.user.toString() !== req.user._id.toString()
+          );
 
           return comment.save().then(updatedComment => res.json(updatedComment));
         }

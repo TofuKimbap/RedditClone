@@ -9,6 +9,10 @@ const CommentSchema = Schema({
     type: Schema.Types.ObjectId,
     ref: 'comment'
   },
+  handle: {
+    type: String,
+    required: true
+  },
   slug: {
     type: String,
     required: true

@@ -1,0 +1,22 @@
+.postDiscussion {
+  margin-top: 4rem;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.comments-container {
+  width: 90%;
+}
+
+.comment-form {
+  display: grid;
+  width: 50%;
+  min-width: 25rem;
+  grid-gap: 0.5rem;
+}
+
+.comment-form > button {
+  justify-self: end;
+}

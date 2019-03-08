@@ -1,6 +1,14 @@
 import axios from 'axios';
 
-import { POST_LOADING, GET_POSTS, GET_ERRORS, ADD_POST, UPDATE_POST } from './types';
+import {
+  POST_LOADING,
+  GET_POSTS,
+  GET_ERRORS,
+  ADD_POST,
+  UPDATE_POST,
+  GET_POST,
+  CLEAR_POST
+} from './types';
 
 export const setPostLoading = () => {
   return {
@@ -22,6 +30,25 @@ export const getPosts = () => dispatch => {
     .catch(err =>
       dispatch({
         type: GET_POSTS,
+        payload: null
+      })
+    );
+};
+
+// Get one specific post
+export const getPost = post_id => dispatch => {
+  dispatch(setPostLoading());
+  axios
+    .get(`/api/posts/${post_id}`)
+    .then(res =>
+      dispatch({
+        type: GET_POST,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_POST,
         payload: null
       })
     );
@@ -81,4 +108,10 @@ export const downvotePost = postId => dispatch => {
         payload: err.response.data
       })
     );
+};
+
+export const clearPost = () => {
+  return {
+    type: CLEAR_POST
+  };
 };
